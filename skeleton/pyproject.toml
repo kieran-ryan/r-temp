@@ -1,0 +1,43 @@
+[build-system]
+requires = [
+    "setuptools>=42",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+experimental-string-processing = true
+
+[tool.coverage.html]
+directory = "docs/coverage"
+
+[tool.coverage.run]
+branch = true
+omit = [
+    "*/venv/*",
+    "*/tests/*",
+]
+
+[tool.coverage.report]
+fail_under = ${{ values.test_coverage_limit | dump }}
+show_missing = true
+
+[tool.coverage.xml]
+output = "docs/coverage/coverage.xml"
+
+[tool.isort]
+include_trailing_comma = true
+profile = "black"
+src_paths = "pysamplelib/"
+
+[tool.mypy]
+mypy_path = "pysamplelib/"
+files = "."
+exclude = "venv|__init__.py|tests|docs"
+
+[tool.pytest.ini_options]
+addopts = "-rA --verbose"
+python_paths = "pysamplelib/"
+testpaths = [
+    "tests",
+]
